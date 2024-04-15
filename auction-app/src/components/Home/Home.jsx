@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { getListings } from "../../api/auctions/auctions";
-import { Container, Row, Col, Card, Image } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 import "./Home.css";
 import TrustedPartners from "./TrustedPartners/TrustedPartners";
+import KeyFeatures from "./KeyFeatures/KeyFeatures";
+import MetricShow from "./MetricShow/MetricShow";
+
 function Home() {
   const [listings, setListings] = useState([]);
 
@@ -38,6 +41,8 @@ function Home() {
         </div>
       </div>
       <TrustedPartners />
+      <KeyFeatures />
+      <MetricShow />
     </div>
   );
 }
