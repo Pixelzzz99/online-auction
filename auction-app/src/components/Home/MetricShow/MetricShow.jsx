@@ -1,4 +1,4 @@
-import { Card  } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import "./MetricShow.css";
 function MetricShow() {
   const metrics = [
@@ -18,23 +18,17 @@ function MetricShow() {
 
   return (
     <div className="metric-show-container">
-      <h1 className="text-center">
-        By the Numbers
-      </h1>
-      <h3 className="text-center">
+      <h1 className="metric-show-header">By the Numbers</h1>
+      <span className="metric-show-description">
         Numbers don't lie! Join the thousands who trust BidMaster for their
         auction needs. Check out our impressive stats.
-      </h3>
+      </span>
 
-      <div className="d-flex justify-content-around ">
+      <div className="metric-card-container">
         {metrics.map((metric) => (
-          <div key={metric.title} className="metric-card-container">
-            <Card className="metric-card">
-              <Card.Body>
-                <Card.Title>{metric.title}</Card.Title>
-                <Card.Text>{metric.description}</Card.Text>
-              </Card.Body>
-            </Card>
+          <div className="metric-card" key={metric.title}>
+            <h2>{metric.title}</h2>
+            <p>{metric.description}</p>
           </div>
         ))}
       </div>

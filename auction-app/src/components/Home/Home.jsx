@@ -5,6 +5,7 @@ import "./Home.css";
 import TrustedPartners from "./TrustedPartners/TrustedPartners";
 import KeyFeatures from "./KeyFeatures/KeyFeatures";
 import MetricShow from "./MetricShow/MetricShow";
+import OurServices from "./OurServices/OurServices";
 
 function Home() {
   const [listings, setListings] = useState([]);
@@ -43,6 +44,7 @@ function Home() {
       <TrustedPartners />
       <KeyFeatures />
       <MetricShow />
+      <OurServices />
     </div>
   );
 }
