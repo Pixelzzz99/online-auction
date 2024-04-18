@@ -13,11 +13,7 @@ function App() {
         <Row className="justify-content-md-center">
           <Col xs lg="10">
             <AuctionNavbar />
-            {/* <ProductList /> */}
-            {/* <BidForm onBid={onBidHandler} /> */}
-            {/* <Home /> */}
-            
-            <StartSelling/>
+            <StartSelling />
             <AuctionFooter />
           </Col>
         </Row>

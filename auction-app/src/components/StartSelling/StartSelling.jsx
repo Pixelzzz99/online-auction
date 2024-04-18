@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+// import { Listing } from "../Listing/Listing";
 import "./StartSelling.css";
 
-function StartSelling() {
+const StartSelling = () => {
   const [listings, setListings] = useState([]);
 
   useEffect(() => {
-    async function fetchListings() {
+    const fetchListings = async () => {
       try {
-        setListings([
+        const data = [
           {
             name: "Oil Painting - Sunset at Sea",
             description:
@@ -68,11 +70,12 @@ function StartSelling() {
             start_date: "2024-05-11T12:00:00Z",
             end_date: "2024-05-18T12:00:00Z",
           },
-        ]);
+        ];
+        setListings(data);
       } catch (error) {
         console.log(error);
       }
-    }
+    };
     fetchListings();
   }, []);
 
@@ -93,7 +96,9 @@ function StartSelling() {
             <Card.Body>
               <Card.Title>{listing.name}</Card.Title>
               <div className="button-info">
-                <Button variant="light">Bid Now</Button>
+                <Link to={`/listings/${index}`} state={listing}>
+                  <Button variant="light">Bid Now</Button>
+                </Link>
                 <span>{listing.initial_price}</span>
               </div>
               <div className="date-info">
@@ -106,6 +111,6 @@ function StartSelling() {
       </div>
     </div>
   );
-}
+};
 
 export default StartSelling;
