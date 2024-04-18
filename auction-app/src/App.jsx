@@ -4,6 +4,7 @@ import AuctionNavbar from "./components/Navbar/AuctionNavbar";
 import AuctionFooter from "./components/Footer/AuctionFooter";
 import { Container, Row, Col } from "react-bootstrap";
 import "./App.css";
+import StartSelling from "./components/StartSelling/StartSelling";
 
 function App() {
   return (
@@ -14,8 +15,9 @@ function App() {
             <AuctionNavbar />
             {/* <ProductList /> */}
             {/* <BidForm onBid={onBidHandler} /> */}
-            <Home />
-
+            {/* <Home /> */}
+            
+            <StartSelling/>
             <AuctionFooter />
           </Col>
         </Row>

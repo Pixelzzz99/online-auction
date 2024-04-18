@@ -23,7 +23,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="home">
+    <>
       <div className="welcome">
         <div className="home-container">
           <div className="header-text">
@@ -45,7 +45,7 @@ function Home() {
       <KeyFeatures />
       <MetricShow />
       <OurServices />
-    </div>
+    </>
   );
 }
 
