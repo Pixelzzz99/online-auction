@@ -1,10 +1,23 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from .serializers import ListingSerializer
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from .models import Listing 
+from .serializers import ListingSerializer, ProductSerializer
+
+
+@api_view((["POST"]))
+@permission_classes([IsAuthenticated])
+def add_product(request):
+    serializer = ProductSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["POST"])
+@permission_classes([IsAuthenticated])
 def create_listing(request):
     serializer = ListingSerializer(data=request.data)
     if serializer.is_valid():
@@ -24,4 +37,12 @@ def get_listings(request):
 def get_listing(request, pk):
     listing = Listing.objects.get(pk=pk)
     serializer = ListingSerializer(listing)
+    return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def user_listings(request, user_id):
+    listings = Listing.objects.filter({})
+    serializer = ListingSerializer(listings, many=True)
     return Response(serializer.data)

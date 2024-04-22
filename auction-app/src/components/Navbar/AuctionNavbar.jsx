@@ -1,9 +1,17 @@
-import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Button, Nav, Navbar } from "react-bootstrap";
 
 import "./AuctionNavbar.css";
 
 function AuctionNavbar() {
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("access_token") !== null) {
+      setIsAuth(true);
+    }
+  }, [isAuth]);
+
   return (
     <div className="bid-navbar-container">
       <Navbar expand="lg" className="bid-navbar">
@@ -15,8 +23,19 @@ function AuctionNavbar() {
             <Nav.Link href="#HowItWorks">How It Works</Nav.Link>
             <Nav.Link href="#link">Catergories</Nav.Link>
             <Nav.Link href="/listings">Start Selling</Nav.Link>
-            <Button>Sign Up</Button>
-            <Button>Login</Button>
+            {isAuth ? (
+              <>
+                <Nav.Link href="#my-cabinet">My Cabinet</Nav.Link>
+                <Button>Logout</Button>
+              </>
+            ) : (
+              <>
+                <Button className="button-link">Sign Up</Button>
+                <Button href="/login" className="button-link">
+                  Login
+                </Button>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
