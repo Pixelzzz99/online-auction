@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-import { redirect } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import "./Login.css";
 
@@ -16,9 +15,8 @@ export default function Login() {
       password: password,
     };
 
-    const { data } = await axios.post("http://localhost:8000/login/", user, {
+    const { data } = await axios.post("http://localhost:8000/api/login/", user, {
       headers: { "Content-Type": "application/json" },
-      withCredentials: true,
     });
 
     localStorage.clear();
@@ -27,13 +25,13 @@ export default function Login() {
     localStorage.setItem("refresh_token", data.refresh);
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${data["access"]}`;
-
-    return redirect("/");
+    
+    window.location.href = "/";
   };
 
   return (
     <div className="auth-form-container">
-      <Form>
+      <Form onSubmit={submit}>
         <h3 className="auth-form-title">Sign In</h3>
         <Form.Group className="mt-3" controlId="formBasic">
           <Form.Label>Username</Form.Label>
@@ -56,7 +54,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Button type="submit" onSubmit={submit} className="mt-3">
+        <Button type="submit" className="mt-3">
           Submit
         </Button>
       </Form>

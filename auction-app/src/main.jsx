@@ -12,6 +12,8 @@ import StartSelling from "./components/StartSelling/StartSelling";
 import NotFoundPage from "./components/NotFound/NotFoundPage";
 import Listing from "./components/Listing/Listing";
 import Login from "./components/Login/Login";
+import Logout from "./components/Login/Logout";
+import "./interceptors/axios.js";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/logout",
+    element: <Logout />,
   },
 ]);
 

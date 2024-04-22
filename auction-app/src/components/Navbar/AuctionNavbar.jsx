@@ -26,7 +26,7 @@ function AuctionNavbar() {
             {isAuth ? (
               <>
                 <Nav.Link href="#my-cabinet">My Cabinet</Nav.Link>
-                <Button>Logout</Button>
+                <Button href="/logout" className="button-link">Logout</Button>
               </>
             ) : (
               <>
