@@ -9,6 +9,14 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ListingSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(read_only=True)
+
+    class Meta:
+        model = Listing
+        fields = "__all__"
+
+
+class CreateListingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Listing
         fields = "__all__"

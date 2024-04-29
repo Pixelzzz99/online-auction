@@ -15,17 +15,20 @@ export default function Login() {
       password: password,
     };
 
-    const { data } = await axios.post("http://localhost:8000/api/login/", user, {
-      headers: { "Content-Type": "application/json" },
-    });
+    const { data } = await axios.post(
+      "http://localhost:8000/api/login/",
+      user,
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
 
     localStorage.clear();
 
     localStorage.setItem("access_token", data.access);
     localStorage.setItem("refresh_token", data.refresh);
+    localStorage.setItem("username", username);
 
-    axios.defaults.headers.common["Authorization"] = `Bearer ${data["access"]}`;
-    
     window.location.href = "/";
   };
 

@@ -1,17 +1,42 @@
+import { useState, useEffect } from "react";
 import { Image, Row, Col, Button, Form } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import "./Listing.css";
 
 const Listing = () => {
-  const { name, description, image, initial_price, start_date, end_date } =
+  const { id, current_price, product, seller, start_time, end_time } =
     useLocation().state;
+
+  const [onlineUsers, setOnlineUsers] = useState([]);
+
+  useEffect(() => {
+    const username = localStorage.getItem("username");
+    const ws = new WebSocket(
+      "ws://localhost:8000/ws/presence/" + username + "/"
+    );
+
+    ws.onopen = () => {
+      console.log("connected");
+      ws.send(JSON.stringify({ username: username }));
+    };
+    ws.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      console.log(message);
+      setOnlineUsers(message.users);
+    };
+
+    return () => {
+      ws.close();
+      setOnlineUsers([]);
+    };
+  }, []);
 
   return (
     <>
       <div className="listing-container">
         <Row>
           <div className="listing-header">
-            <h1>{name}</h1>
+            <h1>{product.name}</h1>
           </div>
         </Row>
 
@@ -20,16 +45,22 @@ const Listing = () => {
             <Col sm="3">
               <div className="listing-active-users">
                 <h3>Customers</h3>
+
+                <ul>
+                  {onlineUsers.map((user, index) => (
+                    <li key={index}>{user}</li>
+                  ))}
+                </ul>
               </div>
             </Col>
 
             <Col sm="6">
               <div className="listing-info">
                 <div className="listing-image">
-                  <Image src={image} />
+                  <Image src={"http://localhost:8000" + product.image} />
                 </div>
                 <div className="listing-description">
-                  <p>{description}</p>
+                  <p>{product.description}</p>
                 </div>
               </div>
             </Col>
@@ -40,7 +71,7 @@ const Listing = () => {
                   <h3>Active Bids</h3>
                 </div>
                 <div className="listing-bid-form">
-                  <h3>COST: {initial_price}</h3>
+                  <h3>COST: {current_price}</h3>
                   <Form>
                     <Form.Group className="mb-3" controlId="yourBid">
                       <Form.Label>Your Bid</Form.Label>

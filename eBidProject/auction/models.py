@@ -6,7 +6,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     initial_price = models.DecimalField(max_digits=10, decimal_places=2)
-    image = models.ImageField(upload_to="product_images/", null=True, blank=True)
+    image = models.ImageField(upload_to="static/product_images/", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
