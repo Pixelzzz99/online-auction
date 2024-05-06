@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import "./MyCabinetPage.css";
-import { createListing, getListingsByUser } from "../../api/auctions/auctions";
+import {
+  createListing,
+  getListingsByUser,
+  deleteListing,
+} from "../../api/auctions/auctions";
 import Button from "../Button/Button";
-import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 
 export default function MyCabinetPage() {
@@ -26,10 +29,10 @@ export default function MyCabinetPage() {
   }, []);
 
   const addListing = (e) => {
-    console.log("HEdRE");
     e.preventDefault();
     const formData = new FormData(e.target);
     const formProps = Object.fromEntries(formData);
+    console.log(formProps);
 
     const listing = {
       name: formProps.name,
@@ -44,6 +47,21 @@ export default function MyCabinetPage() {
     const token = localStorage.getItem("access_token");
     const response = createListing(listing, token);
     setMyListings([...myListings, response]);
+  };
+
+  const delete_listing = (id) => {
+    const token = localStorage.getItem("access_token");
+    deleteListing(id, token)
+      .then((status) => {
+        console.log(status);
+        if (status == 204) {
+          const newData = myListings.filter((item) => item.id !== id);
+          setMyListings(newData);
+        }
+      })
+      .catch((error) => {
+        return;
+      });
   };
 
   return (
@@ -77,7 +95,11 @@ export default function MyCabinetPage() {
                   <span>Update</span>
                 </Button>
 
-                <Button variant={"light"} className="my-cabinet-delete-listing">
+                <Button
+                  variant={"light"}
+                  className="my-cabinet-delete-listing"
+                  onClick={() => delete_listing(listing.id)}
+                >
                   <span>Delete</span>
                 </Button>
               </div>
